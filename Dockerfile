@@ -1,9 +1,10 @@
-# Use a imagem oficial do MySQL
-FROM mysql:5.7
+#imagem base do PostgreSQL
+FROM postgres:latest
 
-# Defina variáveis de ambiente
-ENV MYSQL_ROOT_PASSWORD=root
-ENV MYSQL_DATABASE=root
+# Defina variáveis de ambiente para o Postgres
+ENV POSTGRES_USER root
+ENV POSTGRES_PASSWORD root
+ENV POSTGRES_DB locadora
 
-# Exponha a porta 3306
-EXPOSE 3306
+#porta padrão do PostgreSQL
+EXPOSE 5432

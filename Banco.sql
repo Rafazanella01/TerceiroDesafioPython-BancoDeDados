@@ -1,9 +1,6 @@
 -- Cria o banco de dados Locadora
 CREATE DATABASE IF NOT EXISTS Locadora;
 
--- Conecta ao banco de dados Locadora
-\c Locadora;
-
 -- Cria a tabela filmes se ainda não existir
 CREATE TABLE IF NOT EXISTS filmes (
     id SERIAL PRIMARY KEY,

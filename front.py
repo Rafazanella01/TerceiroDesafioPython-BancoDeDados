@@ -5,7 +5,7 @@ db = Db()
 def index():
     try:
         escolha = 0
-        while escolha != 6:
+        while escolha != "6":
             print("""
                 |-----------------------------|
                         Seja bem vindo!   

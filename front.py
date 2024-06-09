@@ -1,3 +1,4 @@
+import os
 from DataBase.Db import Db
 
 db = Db()
@@ -6,6 +7,7 @@ def index():
     try:
         escolha = 0
         while escolha != "6":
+            print("\n" * os.get_terminal_size().lines)
             print("""
                 |-----------------------------|
                         Seja bem vindo!   
@@ -23,6 +25,8 @@ def index():
 
 
             escolha = (input("-->"))
+
+            print("\n" * os.get_terminal_size().lines)
 
             match escolha:
                 case "1":
@@ -46,7 +50,12 @@ def addFilme():
 
     db.adicionarFilme(titulo, sinopse, ano)
 
+
+    print("\n" * os.get_terminal_size().lines)
     print("Filme adicionado com sucesso!")
+
+    input("\n\nInfome qualquer tecla...")
+
 
 
 def locarFilme():
@@ -68,14 +77,20 @@ def locarFilme():
 
     VerificaId = [filme[0] for filme in filmes]
     if idDevolucao not in VerificaId:
-        print("ID inválido! Por favor, insira um ID válido.")
+        print("\n" * os.get_terminal_size().lines)
+        print("ID inválido! Por favor, insira um ID válido.")     
+        input("\n\nInfome qualquer tecla...")
         return
 
     try:
         db.atualizarStatusLocacao(id, True)
+        print("\n" * os.get_terminal_size().lines)
         print("Filme locado com sucesso!")
+        input("\n\nInfome qualquer tecla...")
     except Exception as e:
+        print("\n" * os.get_terminal_size().lines)
         print(f"Erro ao locar o filme: {e}")
+        input("\n\nInfome qualquer tecla...")
 
 def devolverFilme():
     filmes = db.lerFilmes()
@@ -96,14 +111,20 @@ def devolverFilme():
 
     VerificaId = [filme[0] for filme in filmes]
     if idDevolucao not in VerificaId:
-        print("ID inválido! Por favor, insira um ID válido.")
+        print("\n" * os.get_terminal_size().lines)
+        print("ID inválido! Por favor, insira um ID válido.")     
+        input("\n\nInfome qualquer tecla...")
         return
 
     try:
         db.atualizarStatusLocacao(idDevolucao, False)
-        print("Filme devolvido com sucesso!")
+        print("\n" * os.get_terminal_size().lines) 
+        print("Filme devolvido com sucesso!")   
+        input("\n\nInfome qualquer tecla...")
     except Exception as e:
+        print("\n" * os.get_terminal_size().lines)
         print(f"Erro ao devolver o filme: {e}")
+        input("\n\nInfome qualquer tecla...")
     
 def editFilme():
     filmes = db.lerFilmes()
@@ -116,7 +137,9 @@ def editFilme():
 
     VerificaId = [filme[0] for filme in filmes]
     if idDevolucao not in VerificaId:
-        print("ID inválido! Por favor, insira um ID válido.")
+        print("\n" * os.get_terminal_size().lines)
+        print("ID inválido! Por favor, insira um ID válido.")     
+        input("\n\nInfome qualquer tecla...")
         return
 
     titulo = (input("Qual o novo nome do filme? "))
@@ -125,7 +148,9 @@ def editFilme():
 
     db.atualizarFilme(id, titulo, sinopse, ano)
 
+    print("\n" * os.get_terminal_size().lines)     
     print("Atualizado com sucesso!")
+    input("\n\nInfome qualquer tecla...")
 
 def removerFilme():
     filmes = db.lerFilmes()
@@ -134,6 +159,16 @@ def removerFilme():
         id, titulo, sinopse, dataLancamento, locado = filme
         print(f"ID: {id}\nTítulo: {titulo}\nSinopse: {sinopse}\nData de Lançamento: {dataLancamento}\n{'='*30}")
 
-    id = int(input("Qual o id do filme que deseja remover? "))
+    idDevolucao = int(input("Qual o id do filme que deseja remover? "))
+
+    VerificaId = [filme[0] for filme in filmes]
+    if idDevolucao not in VerificaId:
+        print("\n" * os.get_terminal_size().lines)
+        print("ID inválido! Por favor, insira um ID válido.")     
+        input("\n\nInfome qualquer tecla...")
+        return
 
     db.excluirFilme(id)
+    print("\n" * os.get_terminal_size().lines)     
+    print("Excluido com sucesso!")
+    input("\n\nInfome qualquer tecla...")

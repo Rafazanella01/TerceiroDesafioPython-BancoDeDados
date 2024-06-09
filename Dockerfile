@@ -1,7 +1,7 @@
 #imagem base do PostgreSQL
 FROM postgres:latest
 
-# Defina variáveis de ambiente para o Postgres
+#variáveis de ambiente
 ENV POSTGRES_USER root
 ENV POSTGRES_PASSWORD root
 ENV POSTGRES_DB locadora

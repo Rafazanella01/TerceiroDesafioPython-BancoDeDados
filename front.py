@@ -1,4 +1,4 @@
-from Db import Db
+from DataBase.Db import Db
 
 db = Db()
 

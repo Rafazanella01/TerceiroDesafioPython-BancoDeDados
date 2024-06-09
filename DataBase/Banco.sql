@@ -5,9 +5,8 @@ CREATE DATABASE IF NOT EXISTS Locadora;
 CREATE TABLE IF NOT EXISTS filmes (
     id SERIAL PRIMARY KEY,
     titulo VARCHAR(255) NOT NULL,
-    diretor VARCHAR(255),
-    ano INTEGER,
-    genero VARCHAR(100)
+    sinopse TEXT,
+    data_lancamento DATE
 );
 
 -- Insere os filmes da saga Star Wars na tabela filmes

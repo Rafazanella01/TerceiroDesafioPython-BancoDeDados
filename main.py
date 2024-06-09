@@ -1,8 +1,10 @@
-from Db import Db
+from DataBase.Db import Db
 from front import index
+from app import Api, filmesPopulares
 
 db = Db()
-    
+api = Api()  
+   
 # Criar um novo filme
 #db.adicionarFilme("A volta dos que não foram", "Léo Reutter", 2023, Fantasia")
 
@@ -17,4 +19,8 @@ db = Db()
 #Excluir um filme
 #db.excluirFilme(1)
 
-index()
+#index()
+
+filmes = api.obterFilmesPopulares()
+
+db.adicionarFilmesDaApi(filmes)

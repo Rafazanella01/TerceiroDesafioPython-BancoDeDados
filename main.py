@@ -4,23 +4,19 @@ from app import Api, filmesPopulares
 
 db = Db()
 api = Api()  
-   
-# Criar um novo filme
-#db.adicionarFilme("A volta dos que não foram", "Léo Reutter", 2023, Fantasia")
 
-# Ler todos os filmes
-#filmes = db.lerFilmes()
-#for filme in filmes:
-#    print(filme)
-
-# Atualizar um filme
-#db.atualizarFilme(1, "Star Wars: Episódio IV - Uma Nova Esperança", "George Lucas", 1977, "Aventura, Fantasia")
-
-#Excluir um filme
-#db.excluirFilme(1)
-
-#index()
-
-filmes = api.obterFilmesPopulares()
-
+filmes = filmesPopulares()
 db.adicionarFilmesDaApi(filmes)
+
+index()
+
+"""
+filmes = db.lerFilmes()
+
+for filme in filmes:
+    id, titulo, sinopse, dataLancamento = filme
+    print(f"ID: {id}\nTítulo: {titulo}\nSinopse: {sinopse}\nData de Lançamento: {dataLancamento}\n{'='*30}")
+
+"""
+#db.excluirFilme(3)
+

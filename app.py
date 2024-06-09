@@ -8,8 +8,8 @@ class Api:
         self.urlBase = 'https://api.themoviedb.org/3'
         self.idioma = 'pt-BR'
 
-    def obterFilmesPopulares(self):
-        url = f"{self.urlBase}/movie/popular?api_key={self.apiKey}&language={self.idioma}"
+    def obterFilmes(self, tipoFilme):
+        url = f"{self.urlBase}/movie/{tipoFilme}?api_key={self.apiKey}&language={self.idioma}"
         response = requests.get(url)
         dados = response.json()
         filmesFiltrados = [{'titulo': filme['title'], 'sinopse': filme['overview'], 'data': filme['release_date']} for filme in dados['results']]
@@ -18,9 +18,8 @@ class Api:
 app = Flask(__name__)
 api = Api()
 
-#rota do flask
+#rota do flask localmente
 @app.route('/filmes/populares', methods=['GET'])
 def filmesPopulares():
-    with app.app_context():
-        dados = api.obterFilmesPopulares()
-        return jsonify(dados)
+        dados = api.obterFilmes('popular')
+        return dados

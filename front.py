@@ -73,7 +73,7 @@ def locarFilme():
         print("Não há filmes disponíveis!")
         return
 
-    idDevolucao = int(input("Qual o ID do filme que será devolvido?"))
+    idDevolucao = int(input("Qual o ID do filme que será locado?"))
 
     VerificaId = [filme[0] for filme in filmes]
     if idDevolucao not in VerificaId:
@@ -83,7 +83,7 @@ def locarFilme():
         return
 
     try:
-        db.atualizarStatusLocacao(id, True)
+        db.atualizarStatusLocacao(idDevolucao, True)
         print("\n" * os.get_terminal_size().lines)
         print("Filme locado com sucesso!")
         input("\n\nInfome qualquer tecla...")

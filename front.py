@@ -59,47 +59,56 @@ def addFilme():
 
 
 def locarFilme():
+
+    # CRIA UMA LISTA COM OS FILMES DO BD
     filmes = db.lerFilmes()
 
     Disponiveis = True
 
+    # EXECUTA UM LAÇO PASSANDO POR CADA FILME
     for filme in filmes:
         id, titulo, sinopse, dataLancamento, locado = filme
-        if not locado:
+        if not locado: # VERIFICA SE ESTA LOCADO
             print(f"ID: {id}\nTítulo: {titulo}\nSinopse: {sinopse}\nData de Lançamento: {dataLancamento}\n{'='*30}")
             Disponiveis = False
 
-    if Disponiveis == True:
+    if Disponiveis == True: # SE NÃO HOUVER NENHUM FILME DISPONIVEL
         print("Não há filmes disponíveis!")
         return
 
-    idDevolucao = int(input("Qual o ID do filme que será locado?"))
+    idLocacao = int(input("Qual o ID do filme que será locado?"))
 
-    VerificaId = [filme[0] for filme in filmes]
-    if idDevolucao not in VerificaId:
+    VerificaId = [filme[0] for filme in filmes] # VERIFICA SE O ID INFORMADO EXISTE NO BD
+    if idLocacao not in VerificaId:
         print("\n" * os.get_terminal_size().lines)
         print("ID inválido! Por favor, insira um ID válido.")     
         input("\n\nInfome qualquer tecla...")
         return
 
     try:
-        db.atualizarStatusLocacao(idDevolucao, True)
+        # ATUALIZA O VALOR BOOLEANO NO BD
+        db.atualizarStatusLocacao(idLocacao, True)
         print("\n" * os.get_terminal_size().lines)
         print("Filme locado com sucesso!")
         input("\n\nInfome qualquer tecla...")
     except Exception as e:
+        # CASO ACONTEÇA ALGUM ERRO EVITA DE QUEBRAR A EXECUÇÃO
         print("\n" * os.get_terminal_size().lines)
         print(f"Erro ao locar o filme: {e}")
         input("\n\nInfome qualquer tecla...")
 
+
+
 def devolverFilme():
+
+    # CRIA UMA LISTA COM OS FILMES DO BD
     filmes = db.lerFilmes()
 
     Locados = False
 
-    for filme in filmes:
+    for filme in filmes: # EXECUTA UM LAÇO PASSANDO POR CADA FILME
         id, titulo, sinopse, dataLancamento, locado = filme
-        if locado == True:
+        if locado == True: # VERIFICA SE ESTA LOCADO
             print(f"ID: {id}\nTítulo: {titulo}\nSinopse: {sinopse}\nData de Lançamento: {dataLancamento}\n{'='*30}")
             Locados = True
 
@@ -109,7 +118,7 @@ def devolverFilme():
 
     idDevolucao = int(input("Qual o ID do filme que será devolvido?"))
 
-    VerificaId = [filme[0] for filme in filmes]
+    VerificaId = [filme[0] for filme in filmes] # PASSA PELO BD VERIFICANDO SE HÁ O ID INFORMADO PELO USUÁRIO
     if idDevolucao not in VerificaId:
         print("\n" * os.get_terminal_size().lines)
         print("ID inválido! Por favor, insira um ID válido.")     
@@ -117,6 +126,8 @@ def devolverFilme():
         return
 
     try:
+
+        # ATUALIZA O VALOR BOOLEANO NO BD
         db.atualizarStatusLocacao(idDevolucao, False)
         print("\n" * os.get_terminal_size().lines) 
         print("Filme devolvido com sucesso!")   
@@ -126,17 +137,21 @@ def devolverFilme():
         print(f"Erro ao devolver o filme: {e}")
         input("\n\nInfome qualquer tecla...")
     
+
+
 def editFilme():
+
+    # CRIA UMA LISTA COM OS FILMES DO BD
     filmes = db.lerFilmes()
 
     for filme in filmes:
         id, titulo, sinopse, dataLancamento, locado = filme
         print(f"ID: {id}\nTítulo: {titulo}\nSinopse: {sinopse}\nData de Lançamento: {dataLancamento}\n{'='*30}")
 
-    idDevolucao = int(input("Qual o ID do filme que será devolvido?"))
+    idEdit = int(input("Qual o ID do filme que será editado?"))
 
-    VerificaId = [filme[0] for filme in filmes]
-    if idDevolucao not in VerificaId:
+    VerificaId = [filme[0] for filme in filmes] # FAZ A VERIFICAÇÃO DO ID INFORMADO
+    if idEdit not in VerificaId:
         print("\n" * os.get_terminal_size().lines)
         print("ID inválido! Por favor, insira um ID válido.")     
         input("\n\nInfome qualquer tecla...")
@@ -146,29 +161,33 @@ def editFilme():
     sinopse = (input("Qual a nova sinopse do filme? "))
     ano = (input("Qual a nova data de lançamento? "))
 
-    db.atualizarFilme(id, titulo, sinopse, ano)
+    db.atualizarFilme(idEdit, titulo, sinopse, ano) # CHAMA A FUNÇÃO DE APP.PY PASSANDO AS NOVAS INFORMAÇÕES
 
     print("\n" * os.get_terminal_size().lines)     
     print("Atualizado com sucesso!")
     input("\n\nInfome qualquer tecla...")
 
+
+
 def removerFilme():
+
+    # CRIA UMA LISTA COM OS FILMES DO BD
     filmes = db.lerFilmes()
 
-    for filme in filmes:
+    for filme in filmes: # EXIBE OS FILMES CADASTRADOS
         id, titulo, sinopse, dataLancamento, locado = filme
         print(f"ID: {id}\nTítulo: {titulo}\nSinopse: {sinopse}\nData de Lançamento: {dataLancamento}\n{'='*30}")
 
-    idDevolucao = int(input("Qual o id do filme que deseja remover? "))
+    idDelete = int(input("Qual o id do filme que deseja remover? "))
 
-    VerificaId = [filme[0] for filme in filmes]
-    if idDevolucao not in VerificaId:
+    VerificaId = [filme[0] for filme in filmes] #VERIFICA O ID, SE EXISTE NO BD
+    if idDelete not in VerificaId:
         print("\n" * os.get_terminal_size().lines)
         print("ID inválido! Por favor, insira um ID válido.")     
         input("\n\nInfome qualquer tecla...")
         return
 
-    db.excluirFilme(id)
+    db.excluirFilme(idDelete) # EXCLUI O ID INFORMADO DO BANCO
     print("\n" * os.get_terminal_size().lines)     
     print("Excluido com sucesso!")
     input("\n\nInfome qualquer tecla...")
